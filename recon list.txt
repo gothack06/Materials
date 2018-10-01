@@ -1,0 +1,18 @@
+
+The List:
+
+    https://pentest-tools.com/
+    https://virustotal.com/
+    https://www.shodan.io/
+    https://crt.sh/?q=%25taregt.com
+    https://dnsdumpster.com/
+    https://censys.io
+    http://dnsgoodies.com
+
+These are the webs that I Use Everyday ??
+
+    https://bitbucket.org/LaNMaSteR53/recon-ng
+    https://github.com/michenriksen/aquatone
+    https://github.com/aboul3la/Sublist3r
+    https://github.com/rbsec/dnscan
+    https://github.com/Cleveridge/cleveridge-subdomain-scanner
