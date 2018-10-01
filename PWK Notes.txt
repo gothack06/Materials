@@ -55,8 +55,8 @@ ncat -v ipofwin 4444 --ssl
 Wireshark - packet sniffing 
 
 Information Gathering
-passive infoga using Googlehacking - GHDB
-active infoga 
+passive infogathering using Googlehacking - GHDB
+active infogathering 
 1) DNS Enumeration
 to discover nameserver 
 host -t ns megacorpone.com
